@@ -44,7 +44,7 @@
       name: mongodb-org-shell
       state: present
   - name : dataloading into mongodb 
-    ansible.builtin.command: mongo --host 3.90.202.95 </app/schema/catalogue.js
+    ansible.builtin.shell: mongo --host 3.90.202.95 </app/schema/catalogue.js
   - name : start and enabling catalogue
     ansible.builtin.service:
       name: catalogue

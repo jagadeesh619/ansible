@@ -30,8 +30,8 @@
   tasks:
   - name: learning loops
     ansible.builtin.package:
-      name: "{{items.name}}"
-      state: "{{items.state}}"
+      name: "{{item.name}}"
+      state: "{{item.state}}"
     loop:
     - {name: 'nginx' , state: 'present' }
     - {name:  'git' , state: 'absent' }

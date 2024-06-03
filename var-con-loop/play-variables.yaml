@@ -14,7 +14,7 @@
   tasks:
   - name: learning conditions
     ansible.builtin.command: id roboshop
-      register: user
+    register: user
     ignore_errors: true
   - name: printing exit status code 
     ansible.builtin.debug:

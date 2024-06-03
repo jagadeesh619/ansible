@@ -1,0 +1,37 @@
+- name: variable plays
+  hosts: demo
+  become: yes
+  vars_files:
+  - variables.yaml
+  tasks:
+  - name: learning variables
+    ansible.builtin.debug:
+      msg: "hello {{wishes}}"
+
+- name: conditions plays
+  hosts: demo
+  become: yes
+  tasks:
+  - name: learning conditions
+    ansible.builtin.command: id roboshop
+      register: user
+    ignore_errors: true
+  - name: printing exit status code 
+    ansible.builtin.debug:
+      msg: "print exit status code : {{user.rc}}"
+  - name: create user
+    ansible.builtin.user: 
+      name: roboshop
+    when: user.rc != 0
+
+- name : loop plays
+  hosts: demo
+  become: yes
+  tasks:
+  - name: learning loops
+    ansible.builtin.package:
+      name: {{items.name}}
+      state: {{items.state}}
+    loop:
+    - {name: 'nginx' , state: 'present' }
+    - {name:  'git' , state: 'absent' }

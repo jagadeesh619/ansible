@@ -4,3 +4,6 @@
 54.197.199.234
 [catalogue]
 3.80.22.225
+
+[all:vars]
+ansible_password=DevOps321

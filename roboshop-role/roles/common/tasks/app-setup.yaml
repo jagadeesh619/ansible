@@ -1,0 +1,33 @@
+- name: disable and enable nodejs 
+  ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+- name : install nodejs 
+  ansible.builtin.package:
+    name: nodejs 
+    state: present
+- name : create user
+  ansible.builtin.user:
+    name: roboshop
+- name : create app directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+- name : dowload application
+  ansible.builtin.get_url:
+    url: https://roboshop-builds.s3.amazonaws.com/"{{component}}".zip
+    dest: /tmp
+- name : unarchive the application
+  ansible.builtin.unarchive:
+    src: /tmp/"{{component}}".zip
+    dest: /app
+    remote_src: yes
+- name : install packages
+  ansible.builtin.command: npm install
+  args:
+    chdir: /app
+- name : copying "{{component}}".service 
+  ansible.builtin.copy:
+    src: "{{component}}".service
+    dest: /etc/systemd/system/"{{component}}".service
+- name : deamon- reloading the "{{component}}" service
+  ansible.builtin.systemd_service:
+    daemon-reload: true

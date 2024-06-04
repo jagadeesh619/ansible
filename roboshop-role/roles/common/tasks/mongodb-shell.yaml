@@ -1,0 +1,15 @@
+- name : copying mongodb shell repo 
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+- name: installing mongo repo shell
+  ansible.builtin.package:
+    name: mongodb-org-shell
+    state: present
+- name : dataloading into mongodb 
+  ansible.builtin.shell: mongo --host 3.90.202.95 </app/schema/"{{component}}".js
+- name : start and enabling "{{component}}"
+  ansible.builtin.service:
+    name: catalogue
+    state: started
+    enabled: yes

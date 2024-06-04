@@ -1,0 +1,5 @@
+- name: installing application "{{component}}"
+  hosts: "{{component}}"
+  become: yes
+  roles:
+  - name: "{{component}}"

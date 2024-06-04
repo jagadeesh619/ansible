@@ -1,8 +1,8 @@
 - name: app setup for application "{{component}}"
   ansible.builtin.import_role:
     name: common
-    tasks_from: app-setup
+    task_from: app-setup
 - name: loading data into mongodb from "{{component}}"
   ansible.builtin.import_role:
     name: common
-    tasks_from: mongodb-shell
+    task_from: mongodb-shell

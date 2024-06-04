@@ -13,21 +13,23 @@
     state: directory
 - name : dowload application
   ansible.builtin.get_url:
-    url: https://roboshop-builds.s3.amazonaws.com/"{{component}}".zip
+    url: "https://roboshop-builds.s3.amazonaws.com/{{component}}.zip"
     dest: /tmp
 - name : unarchive the application
   ansible.builtin.unarchive:
-    src: /tmp/"{{component}}".zip
+    src: "/tmp/{{component}}.zip"
     dest: /app
     remote_src: yes
 - name : install packages
   ansible.builtin.command: npm install
   args:
     chdir: /app
-- name : copying "{{component}}".service 
+
+- name : "copying {{component}}.service "
   ansible.builtin.copy:
-    src: "{{component}}".service
-    dest: /etc/systemd/system/"{{component}}".service
-- name : deamon- reloading the "{{component}}" service
+    src: "{{component}}.service"
+    dest: "/etc/systemd/system/{{component}}.service"
+
+- name : "deamon- reloading the {{component}} service"
   ansible.builtin.systemd_service:
     daemon-reload: true
